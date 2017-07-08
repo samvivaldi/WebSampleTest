@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.descendants * {
+	display: block;
+	border: 2px solid lightgrey;
+	color: lightgrey;
+	padding: 5px;
+	margin: 15px;
+}
+</style>
+<script src="/tomcat_test/sam/scripts/jquery-3.2.0.js"></script>
+<script>
+
+var fnClick = function() {
+	$("div > p").css({"color": "red", "border": "2px solid red"});
+	// $("div").find("span").css({"color": "red", "border": "2px solid red"});
+}
+
+</script>
+</head>
+<body>
+
+	<div class="descendants" style="width: 500px;">
+		div (current element)
+		<p>
+			p (child) <span>span (grandchild)</span>
+		</p>
+		<p>
+			p (child) <span>span (grandchild)</span>
+		</p>
+	</div>
+	<input type='button' value='click' onClick='fnClick();'>
+</body>
+</html>

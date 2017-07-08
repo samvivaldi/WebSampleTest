@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<style>
+</style>
+<script src="/tomcat_test/sam/scripts/jquery-3.2.0.js"></script>
+<script>
+$(document).ready(function(){
+   
+});
+
+function fnClick() {
+	$.ajax({
+			url:"/tomcat_test/work_json.sam",
+			data:'{"name":"sam", "age":20, "hobbys":["술마시기", "잠자기"]}',
+			type:"POST",
+			dataType:"json",
+			success:function(result){
+				console.log(result);
+				var msg = "";
+				
+				$.each(result.hobbys, function (index, value) {
+					msg = msg + value;
+				});
+				
+				$("#result").text(result.name + " : " + result.age + " : " + msg);
+			},
+			error:function(jqXHR,textStatus,errorThrown){
+				alert(textStatus);
+				console.log(jqXHR, textStatus, errorThrown);
+			}
+	});
+}
+
+function fnClick2() {
+	
+	var d1 = $.ajax({
+		url:"/tomcat_test/work_json.sam",
+		data:'{"name":"AAA", "age":30, "hobbys":["sleep", "놀기"], "s":1}',
+		type:"POST",
+		dataType:"json"
+	});
+	
+	var d2 = $.ajax({
+		url:"/tomcat_test/work_json.sam",
+		data:'{"name":"10초대기", "age":30, "hobbys":["sleep", "놀기"], "s":10}',
+		type:"POST",
+		dataType:"json"
+	});
+	
+	$.when(d1, d2).done(function (v1, v2) {
+	    console.log("done deferred " +  v1 ); 
+	    $("#result").html("deferred ====> " + v1[0].name + " : " + v1[0].age);
+	    $("#result").html($("#result").html() + "<br>========== " + v2[0].name + " : " + v2[0].age);
+	}).fail(function (v1, v2) {
+	    console.log("faile deferred " +  v1 ); 
+	    $("#result").html("deferred ====> " + v1.status + ":" + v1.statusText);
+	})
+	
+	d1.reject();
+	console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+}
+
+//deferred.resolve()
+//deferred.reject()
+
+//D:\eclipse-jee-neon-3-win32\plugins\com.github.eclipsecolortheme_1.0.0.201410260308.jar
+//D:\eclipse-jee-neon-3-win32\features\com.github.eclipsecolortheme.feature_1.0.0.201410260308
+
+
+
+function fnTest() {
+	var obj = JSON.parse('{"name":"sam", "age":20, "hobbys":["술마시기", "잠자기"]}');
+	var str = JSON.stringify(obj);
+	
+}
+
+</script>
+</head>
+<body>
+	<input type='button' value='click' onClick='fnClick();'>  <input type='button' value='deferred' onClick='fnClick2();'>
+	<div id='result'>
+	
+	</div>
+</body>
+</html>

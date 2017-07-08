@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="UTF-8">
+ <title>CANVAS Test</title>
+ <script>
+ window.onload=function(){ 
+ 	
+     var can = document.getElementById("canvasID");
+     var context = can.getContext("2d");
+       
+     if(context){ 
+        
+    	 context.fillStyle = "green";
+    	 context.fillRect(100,100,100,100);
+         
+         context.lineWidth = 5; 
+         context.strokeStyle = "black"
+         context.strokeRect(95,95,110,110); 
+         
+     } 
+ } 
+</script>
+ </head>
+ <body>
+     <canvas id="canvasID" width="700" height="700">
+    </canvas>
+ </body>
+ </html>

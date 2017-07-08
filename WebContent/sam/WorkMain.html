@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	var w;
+
+	function startWorker() {
+		if (typeof (Worker) !== "undefined" && typeof (w) == "undefined") {
+
+			w = new Worker("/tomcat_test/sam/scripts/worker_test.js");
+
+			w.postMessage("CLIENT ¸Þ¼¼Áö");
+			
+			w.onmessage = function(event) {
+				document.getElementById("result").innerHTML = event.data;
+			};
+		} else {
+			document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+		}
+	}
+
+	function stopWorker() {
+		w.terminate();
+		w = undefined;
+	}
+</script>
+</head>
+<body>
+
+<p>Worker's Message : <output id="result"></output></p>
+<button onclick="startWorker()">Start Worker</button> 
+<button onclick="stopWorker()">Stop Worker</button>
+
+</body>
+</html>
